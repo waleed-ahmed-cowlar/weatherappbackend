@@ -7,6 +7,7 @@ const weatherContollers = {
         res.json({ success: true, data: newWeather })
     },
     getweather: async function (req, res) {
+        // const =await UserModel.find()
         const weatherData = await WeatherModel.find({ user: req.body.user })
         res.json({ success: true, data: weatherData })
     },
