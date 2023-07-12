@@ -6,7 +6,7 @@ async function verify(req, res, next) {
     const token = req.headers['auth-token']
     const userid = req.headers['userid']
 
-    const result = jsonwebtoken.verify(token, 'myseckey343434343')
+    const result = jsonwebtoken.verify(token, process.env.secret_key)
     try {
         if (result.userid == userid) {
             next()

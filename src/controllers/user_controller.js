@@ -1,6 +1,7 @@
 const UserModel = require('../models/user_model')
 const bcrpyt = require('bcrypt')
 const jsonwebtoken = require('jsonwebtoken')
+require('dotenv').config()
 
 const userControllers = {
     createAccount: async function (req, res) {
@@ -11,16 +12,15 @@ const userControllers = {
             return
         }
         const newUser = new UserModel(userData)
-        const token = await jsonwebtoken.sign(
-            { userid: userData.userid },
-            'myseckey343434343'
-        )
-        newUser.token = token
+
+        // newUser.token = token
 
         await newUser.save()
         res.send({ success: true, data: newUser })
     },
     login: async function (req, res) {
+        console.log(process.env.Secret_key)
+
         const email = req.body.email
         const password = req.body.password
         const founduser = await UserModel.findOne({ email: email })
@@ -36,10 +36,15 @@ const userControllers = {
             res.send({ success: false, error: 'incorrect password' })
             return
         }
+        const token = await jsonwebtoken.sign(
+            { userid: founduser.userid },
+            process.env.Secret_key
+        )
         res.send({
             success: true,
-            error: 'user found and login successful',
+            // error: 'user found and login successful',
             user: founduser,
+            token: token,
         })
     },
 }

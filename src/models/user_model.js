@@ -6,7 +6,7 @@ var userSchema = new Schema({
     userid: { type: String, unique: true },
     password: { type: String, required: true },
     fullname: { type: String, default: '' },
-    token: { type: String, default: '' },
+    // token: { type: String, default: '' },
     email: { type: String, unique: true, required: true },
     phoneNumber: { type: String, default: '' },
     address: { type: String, default: '' },
