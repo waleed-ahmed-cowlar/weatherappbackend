@@ -6,6 +6,6 @@ router.get('/', async function (req, res) {
     res.json({ success: true, data: 'weather data' })
 })
 router.post('/saveWeather', weatherContollers.saveWeather)
-router.get('/getweather', verify, weatherContollers.getweather)
+router.get('/getweather', verify, weatherContollers.getWeather)
 
 module.exports = router
