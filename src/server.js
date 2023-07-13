@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.use(cors())
 const fetchWeatherData = require('./mqtt/mqtt_publisher')
-const listen_to_data=require('./mqtt/mqtt_subscriber')
+const listen_to_data = require('./mqtt/mqtt_subscriber')
 
 fetchWeatherData()
 listen_to_data()

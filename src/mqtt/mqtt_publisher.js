@@ -36,7 +36,7 @@ async function fetchWeatherData() {
 
             const weatherData = response.data
             client.publish('weather', JSON.stringify(weatherData))
-            await sleep(40000)
+            await sleep(60000)
 
             // // Connect to the MQTT broker and publish the weather data
 

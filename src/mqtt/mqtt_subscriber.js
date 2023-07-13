@@ -11,8 +11,8 @@ async function listen_to_data() {
         client.subscribe('weather')
     })
     client.on('message', (topic, message) => {
-        console.log(`Received message on topic: ${topic}`);
-        console.log(`Message: ${message}`);
-      });
+        console.log(`Received message on topic: ${topic}`)
+        console.log(`Message: ${message}`)
+    })
 }
 module.exports = listen_to_data
