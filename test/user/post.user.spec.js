@@ -8,7 +8,6 @@ const { postRequest } = require('../testing_helper')
 
 describe('POST: /user', () => {
     beforeAll(async () => {
-        console.log('gaefraw')
         await userModel.deleteMany({})
     })
     describe('success', () => {
