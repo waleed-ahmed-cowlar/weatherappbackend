@@ -1,0 +1,70 @@
+# version: "3"
+# services:
+#   app:
+#     container_name: app
+#     image: dockerfile
+#     restart: always
+#     build: .
+#     ports:
+#       - "5000:5000"
+#     links:
+#       - mongo
+#   mongo:
+#     container_name: mongo
+#     image: mongo
+#     volumes:
+#       - ./data:/data/db
+#     ports:
+#       - '27017:27017'
+
+version: '3'
+services:
+    app:
+        container_name: app
+        image: dockerfile
+        restart: always
+        build: .
+        ports:
+            - '5000:5000'
+        links:
+            - mongo
+    mongo:
+        container_name: mongo
+        image: mongo
+        volumes:
+            - ./data:/data/db
+        ports:
+            - '27017:27017'
+    influxdb:
+        image: influxdb:2.0
+        volumes:
+            - influxdb_data:/var/lib/influxdb2
+            - ./config2:/etc/influxdb2
+        ports:
+            - '8086:8086'
+        environment:
+            - DOCKER_INFLUXDB_INIT_MODE=setup
+            - DOCKER_INFLUXDB_INIT_USERNAME=cowlar
+            - DOCKER_INFLUXDB_INIT_PASSWORD=cowlar123456
+            - DOCKER_INFLUXDB_INIT_ORG=myorg
+            - DOCKER_INFLUXDB_INIT_BUCKET=weatherbuck
+            - DOCKER_INFLUXDB_INIT_RETENTION=1w
+            - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=UqYKZWIZ9nKja-_d1I1KGBOXT7YbOEHg3CxN0NVupyQqHZwuGbRw6rmMHkZNhuzbGLTEH1ScnKGnnopqLzCa9A==
+        command: influxd run -config /etc/influxdb2/influxdb.conf
+    mosquitto:
+        container_name: mosquitto
+        image: eclipse-mosquitto
+        ports:
+            - '1883:1883'
+            - '9001:9001'
+        volumes:
+            - mosquitto_data:/mosquitto/data
+            - mosquitto_config:/mosquitto/config
+            - mosquitto_log:/mosquitto/log
+            - ./mosquitto.conf:/mosquitto/config/mosquitto.conf 
+
+volumes:
+    influxdb_data:
+    mosquitto_data:
+    mosquitto_config:
+    mosquitto_log:

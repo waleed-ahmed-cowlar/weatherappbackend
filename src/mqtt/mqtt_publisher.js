@@ -1,7 +1,7 @@
 const axios = require('axios')
 const mqtt = require('mqtt')
 
-const mqttBrokerUrl = 'mqtt://localhost:1883' // MQTT broker URL
+// const mqttBrokerUrl = 'mqtt://localhost:1883' // MQTT broker URL
 // const mqttTopic = 'weather-data' // MQTT topic to publish the weather data
 // const protocol = 'mqtt'
 // const host = 'localhost'
@@ -11,7 +11,7 @@ const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
 // const connectUrl = `${protocol}://${host}:${port}`
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 async function fetchWeatherData() {
-    const client = mqtt.connect(mqttBrokerUrl, clientId)
+    const client = mqtt.connect('mqtt://mosquitto', 1883, clientId)
     // console.log(client)
 
     // eslint-disable-next-line no-constant-condition
@@ -36,7 +36,7 @@ async function fetchWeatherData() {
 
             const weatherData = response.data
             client.publish('weather', JSON.stringify(weatherData))
-            await sleep(60000)
+            await sleep(5000)
 
             // // Connect to the MQTT broker and publish the weather data
 
