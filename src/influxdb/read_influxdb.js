@@ -1,8 +1,9 @@
 const { InfluxDB } = require('@influxdata/influxdb-client')
 const url = 'http://localhost:8086'
 const token =
-    'XbJGJjb5j9kvAQ8vod6RINUDNhPpaCLb1tMyYyi4d31Qra136GZqSu9incVC7RFIpbJGy8XJump0HQVC_DTDOQ=='
-const org = 'newOrg'
+    'UqYKZWIZ9nKja-_d1I1KGBOXT7YbOEHg3CxN0NVupyQqHZwuGbRw6rmMHkZNhuzbGLTEH1ScnKGnnopqLzCa9A=='
+
+const org = 'neworg'
 
 const influxDB = new InfluxDB({ url, token })
 
@@ -20,14 +21,6 @@ const myQuery = async () => {
         )
     }
 }
-influxDB
-    .query('DELETE FROM temperature WHERE time > now() - 7d')
-    .then(() => {
-        console.log('Data deleted from InfluxDB')
-    })
-    .catch((error) => {
-        console.error(`Error deleting data from InfluxDB: ${error}`)
-    })
 
 /** Execute a query and receive line table metadata and rows. */
 myQuery()
